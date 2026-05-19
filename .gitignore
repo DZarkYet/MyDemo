@@ -1,0 +1,22 @@
+# ============== Unity 必须忽略（只删缓存，不删资源） ==============
+[Ll]ibrary/
+[Tt]emp/
+[Oo]bj/
+[Bb]uild/
+[Bb]uilds/
+[Ll]ogs/
+MemoryCaptures/
+.vs/
+UserSettings/
+
+# ============== 只忽略本地配置，不删你的项目 ==============
+*.shturl.cc/N
+*.suo
+*.user
+.DS_Store
+shturl.cc
+
+# ============== 【重点】强制保留你所有资源！！ ==============
+!Assets/**/*
+!ProjectSettings/**/*
+!Packages/**/*
