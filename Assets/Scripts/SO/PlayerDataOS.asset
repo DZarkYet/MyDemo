@@ -23,3 +23,4 @@ MonoBehaviour:
   dodgeDistance: 2
   maxComboCount: 5
   comboWindow: 1
+  swordWindow: 2

@@ -1,0 +1,26 @@
+ManifestFileVersion: 0
+CRC: 1537463718
+Hashes:
+  AssetFileHash:
+    serializedVersion: 2
+    Hash: dd4f5ee615a369aef76c92dc94c69ae2
+  TypeTreeHash:
+    serializedVersion: 2
+    Hash: 9a2ca7bdbd1871f7131daf57de908e0c
+  IncrementalBuildHash:
+    serializedVersion: 2
+    Hash: dd4f5ee615a369aef76c92dc94c69ae2
+HashAppended: 0
+ClassTypes:
+- Class: 83
+  Script: {instanceID: 0}
+SerializeReferenceClassIdentifiers: []
+Assets:
+- Assets/AB/Character/Gilberta/sound/lose.mp3
+- Assets/AB/Character/Gilberta/sound/lastSkill.mp3
+- Assets/AB/Character/Gilberta/sound/attack1.mp3
+- Assets/AB/Character/Gilberta/sound/hurt2.mp3
+- Assets/AB/Character/Gilberta/sound/hurt1.mp3
+- Assets/AB/Character/Gilberta/sound/attack3.mp3
+- Assets/AB/Character/Gilberta/sound/attack2.mp3
+Dependencies: []

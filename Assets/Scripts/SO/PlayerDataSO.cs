@@ -20,6 +20,7 @@ public class PlayerDataSO : ScriptableObject
 
     [Header("Á¬»÷ÅäÖÃ")]
     public int maxComboCount = 5;
-    public float comboWindow = 1f;
+    public int comboWindow = 1;
+    public int swordWindow = 3;
 
 }

@@ -40,7 +40,19 @@ public enum E_EventType
     /// </summary>
     E_Input_Vertical,
     /// <summary>
-    /// 监听跳跃
+    /// 监听跳跃 -- 参数:无
     /// </summary>
-    E_Jump
+    E_Jump,
+    /// <summary>
+    /// 监听攻击 -- 参数:无
+    /// </summary>
+    E_Player_Attack,
+    /// <summary>
+    /// 监听闪避/翻滚 -- 参数:无
+    /// </summary>
+    E_Player_Sprint,
+    /// <summary>
+    /// 关闭注册面板
+    /// </summary>
+    E_Close_Registry,
 }

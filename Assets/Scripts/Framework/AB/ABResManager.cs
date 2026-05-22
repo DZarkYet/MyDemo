@@ -9,7 +9,7 @@ using UnityEngine.Events;
 public class ABResManager : BaseManager<ABResManager>
 {
     //如果是true会通过EditorResManager加载 false则通过ABManager加载
-    private bool isDebug = false;
+    private bool isDebug = true;
 
     private ABResManager() { }
 

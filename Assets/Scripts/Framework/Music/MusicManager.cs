@@ -127,7 +127,7 @@ public class MusicManager : BaseManager<MusicManager>
                 soundList.Add(source);
             //传递给外部使用
             callBack?.Invoke(source);
-        }, isSync, false);
+        }, isSync, true);
     }
 
     /// <summary>
