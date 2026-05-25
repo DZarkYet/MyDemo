@@ -12,25 +12,9 @@ public enum E_EventType
     /// </summary>
     E_Monster_Dead,
     /// <summary>
-    /// 玩家获取奖励 -- 参数:int
-    /// </summary>
-    E_Player_GetReward,
-    /// <summary>
-    /// 测试用事件 -- 参数:无
-    /// </summary>
-    E_Test,
-    /// <summary>
     /// 场景变换得到进度 -- 参数:无
     /// </summary>
     E_Scene_Load,
-
-    /// <summary>
-    /// 输入系统触发技能1的行为
-    /// </summary>
-    E_Input_Skill1,
-    E_Input_Skill2,
-    E_Input_Skill3,
-    
     /// <summary>
     /// 水平热键 -1~1的监听
     /// </summary>
@@ -67,4 +51,16 @@ public enum E_EventType
     /// 解除鼠标锁定
     /// </summary>
     E_Mouse_UnLock,
+    /// <summary>
+    /// 计时结束
+    /// </summary>
+    E_Times_Up,
+    /// <summary>
+    /// 开始游戏
+    /// </summary>
+    E_Game_Start,
+    /// <summary>
+    /// 玩家受伤
+    /// </summary>
+    E_Player_Hit,
 }

@@ -1,3 +1,4 @@
+using Cinemachine;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -18,6 +19,7 @@ public class PlayerController : MonoBehaviour
     private Coroutine delaySwordActiveCoroutine;
     private Coroutine disableHitboxCoroutine;
     private GameObject currentHitbox;
+    private CinemachineFreeLook freeLookCamera;
 
     [Header("基础设置")]
     public float currentSpeed;
@@ -26,6 +28,8 @@ public class PlayerController : MonoBehaviour
     private bool isJumping = false;
     private int comboCount = 0;
     private bool isSprinting = false;
+    public float nowHp;
+    private bool isStart = false;
 
     private GameObject[] attackTarget;
     private Vector2 moveInput;
@@ -37,6 +41,9 @@ public class PlayerController : MonoBehaviour
         //获取角色控制器组件和动画组件的引用，以便在后续的移动和动画逻辑中使用
         animator = GetComponentInChildren<Animator>();
         characterController = GetComponent<CharacterController>();
+        freeLookCamera = FindObjectOfType<CinemachineFreeLook>();
+        freeLookCamera.m_XAxis.m_MaxSpeed = 0f;
+        freeLookCamera.m_YAxis.m_MaxSpeed = 0f;
         followingCamera = Camera.main.transform;
         //启动输入管理器，并注册水平轴、垂直轴的监听器，以便在玩家输入时能够正确处理移动逻辑
         if (InputManager.Instance != null)
@@ -55,6 +62,25 @@ public class PlayerController : MonoBehaviour
         InputManager.Instance.ChangeMouseInfo(E_EventType.E_Player_Sprint, 1, InputInfo.E_InputType.Down);
         EventCenter.Instance.AddEventListener(E_EventType.E_Player_Sprint, OnReceiveSprint);
 
+        EventCenter.Instance.AddEventListener(E_EventType.E_Game_Start, () =>
+        {
+            isStart = true;
+            if (freeLookCamera != null)
+            {
+                freeLookCamera.m_XAxis.m_MaxSpeed = 300f;
+                freeLookCamera.m_YAxis.m_MaxSpeed = 2f;
+            }
+        });
+        EventCenter.Instance.AddEventListener(E_EventType.E_Times_Up, () =>
+        {
+            isStart = false;
+            if (freeLookCamera != null)
+            {
+                freeLookCamera.m_XAxis.m_MaxSpeed = 0f;
+                freeLookCamera.m_YAxis.m_MaxSpeed = 0f;
+            }
+        });
+
         MusicManager.Instance.ChangeSoundValue(0.5f);
 
         sword.SetActive(false);
@@ -69,11 +95,14 @@ public class PlayerController : MonoBehaviour
     
     void Update()
     {
-        if (!animator.GetCurrentAnimatorStateInfo(0).IsTag("Attack"))
+        if (isStart)
         {
-            OnPlayerMoveAndJump();
-        }     
-        OnCancelSprint();
+            if (!animator.GetCurrentAnimatorStateInfo(0).IsTag("Attack"))
+            {
+                OnPlayerMoveAndJump();
+            }
+            OnCancelSprint();
+        }
     }
 
     #region 水平移动和跳跃逻辑
@@ -192,52 +221,55 @@ public class PlayerController : MonoBehaviour
     //接受攻击信息并处理攻击逻辑
     private void OnReceiveAttack()
     {
-        LookAtNearestEnemy();
-        if (delaySwordActiveCoroutine != null)
-            StopCoroutine(delaySwordActiveCoroutine);
-        packedSword.SetActive(false);
-        sword.SetActive(true);
-        comboCount++;
-        if(delayComboCoroutine != null)
-            StopCoroutine(delayComboCoroutine);
-        if(delaySwordCoroutine != null)
-            StopCoroutine(delaySwordCoroutine);
-        if (comboCount > 5)
-            comboCount = 1;
-        switch (comboCount)
+        if (isStart)
         {
-            case 1:
-                animator.CrossFade("Combo1", 0f);
-                SpawnAttackHitbox(comboCount);
-                MusicManager.Instance.PlaySound("attack1");
-                MusicManager.Instance.PlaySound("normalSwoosh", false);
-                break;
-            case 2:
-                animator.CrossFade("Combo2", 0f);
-                SpawnAttackHitbox(comboCount);
-                MusicManager.Instance.PlaySound("normalSwoosh", false);
-                break;
-            case 3:
-                animator.CrossFade("Combo3", 0f);
-                SpawnAttackHitbox(comboCount);
-                MusicManager.Instance.PlaySound("attack2");
-                MusicManager.Instance.PlaySound("windSwoosh", false);
-                break;
-            case 4:
-                animator.CrossFade("Combo4", 0f);
-                SpawnAttackHitbox(comboCount);
-                MusicManager.Instance.PlaySound("windSwoosh", false);
-                break;
-            case 5:
-                animator.CrossFade("Combo5", 0f);
-                SpawnAttackHitbox(comboCount);
-                MusicManager.Instance.PlaySound("attack3");
-                MusicManager.Instance.PlaySound("lastSwoosh");
-                delaySwordActiveCoroutine = StartCoroutine(DelayCombo5Effect());
-                break;
+            LookAtNearestEnemy();
+            if (delaySwordActiveCoroutine != null)
+                StopCoroutine(delaySwordActiveCoroutine);
+            packedSword.SetActive(false);
+            sword.SetActive(true);
+            comboCount++;
+            if (delayComboCoroutine != null)
+                StopCoroutine(delayComboCoroutine);
+            if (delaySwordCoroutine != null)
+                StopCoroutine(delaySwordCoroutine);
+            if (comboCount > 5)
+                comboCount = 1;
+            switch (comboCount)
+            {
+                case 1:
+                    animator.CrossFade("Combo1", 0f);
+                    SpawnAttackHitbox(comboCount);
+                    MusicManager.Instance.PlaySound("attack1");
+                    MusicManager.Instance.PlaySound("normalSwoosh", false);
+                    break;
+                case 2:
+                    animator.CrossFade("Combo2", 0f);
+                    SpawnAttackHitbox(comboCount);
+                    MusicManager.Instance.PlaySound("normalSwoosh", false);
+                    break;
+                case 3:
+                    animator.CrossFade("Combo3", 0f);
+                    SpawnAttackHitbox(comboCount);
+                    MusicManager.Instance.PlaySound("attack2");
+                    MusicManager.Instance.PlaySound("windSwoosh", false);
+                    break;
+                case 4:
+                    animator.CrossFade("Combo4", 0f);
+                    SpawnAttackHitbox(comboCount);
+                    MusicManager.Instance.PlaySound("windSwoosh", false);
+                    break;
+                case 5:
+                    animator.CrossFade("Combo5", 0f);
+                    SpawnAttackHitbox(comboCount);
+                    MusicManager.Instance.PlaySound("attack3");
+                    MusicManager.Instance.PlaySound("lastSwoosh");
+                    delaySwordActiveCoroutine = StartCoroutine(DelayCombo5Effect());
+                    break;
+            }
+            delayComboCoroutine = StartCoroutine(DelayComboWindow());
+            delaySwordCoroutine = StartCoroutine(DelaySwordState());
         }
-        delayComboCoroutine = StartCoroutine(DelayComboWindow());
-        delaySwordCoroutine = StartCoroutine(DelaySwordState());
     }
 
     private void SpawnAttackHitbox(int comboIndex)
@@ -355,5 +387,10 @@ public class PlayerController : MonoBehaviour
             enemyPos.y = transform.position.y;
             transform.LookAt(enemyPos);
         }
+    }
+
+    public void TakeDamage(float damage)
+    {
+        nowHp -= damage;
     }
 }

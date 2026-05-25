@@ -15,7 +15,7 @@ MonoBehaviour:
   combos:
   - hitboxCenter: {x: 0, y: 1.1, z: 0.8}
     hitboxSize: {x: 0.3, y: 0.7, z: 1.5}
-    activeDuration: 0.4
+    activeDuration: 2
     damage: 15
   - hitboxCenter: {x: 0, y: 1.3, z: 0.6}
     hitboxSize: {x: 0.3, y: 0.9, z: 1.2}

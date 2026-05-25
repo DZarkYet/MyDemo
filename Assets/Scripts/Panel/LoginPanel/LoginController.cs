@@ -36,6 +36,7 @@ public class LoginController : MonoBehaviour
         {
             UIManager.Instance.HidePanel<LoadingPanel>();
             UIManager.Instance.HidePanel<LoginPanel>();
+            UIManager.Instance.ShowPanel<MainPanel>();
         });
     }
 

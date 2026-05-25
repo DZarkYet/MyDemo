@@ -68,6 +68,7 @@
     <Compile Include="Assets\Scripts\Framework\Util\EncryptionUtil.cs" />
     <Compile Include="Assets\unity-chan!\Unity-chan! Model\Scripts\IKCtrlRightHand.cs" />
     <Compile Include="Assets\Scripts\Framework\Singleton\BaseManager.cs" />
+    <Compile Include="Assets\Scripts\Data\RecordInfo.cs" />
     <Compile Include="Assets\LitJson\IJsonWrapper.cs" />
     <Compile Include="Assets\Scripts\Data\PlayerDataSO.cs" />
     <Compile Include="Assets\Scripts\Framework\Util\MathUtil.cs" />
@@ -83,6 +84,7 @@
     <Compile Include="Assets\LitJson\JsonException.cs" />
     <Compile Include="Assets\unity-chan!\Unity-chan! Model\Scripts\AutoBlink.cs" />
     <Compile Include="Assets\Scripts\Panel\RegistryPanel\RegistryPanel.cs" />
+    <Compile Include="Assets\Scripts\Panel\MainPanel\MainController.cs" />
     <Compile Include="Assets\Scripts\Enemy\EnemyController.cs" />
     <Compile Include="Assets\Scripts\Framework\Mono\MonoManager.cs" />
     <Compile Include="Assets\Scripts\Framework\EventCenter\E_EventType.cs" />
@@ -92,10 +94,13 @@
     <Compile Include="Assets\Scripts\Framework\Singleton\SingletonMono.cs" />
     <Compile Include="Assets\Scripts\Effect\LastAttackEffect.cs" />
     <Compile Include="Assets\unity-chan!\Unity-chan! Model\Scripts\SpringCollider.cs" />
+    <Compile Include="Assets\Scripts\Data\RecordData.cs" />
     <Compile Include="Assets\Scripts\Framework\Input\InputInfo.cs" />
     <Compile Include="Assets\LitJson\JsonMapper.cs" />
     <Compile Include="Assets\LitJson\ParserToken.cs" />
+    <Compile Include="Assets\Scripts\Effect\EnemyAttackHitbox.cs" />
     <Compile Include="Assets\Scripts\Framework\AB\ABManager.cs" />
+    <Compile Include="Assets\Scripts\Panel\MainPanel\MainPanel.cs" />
     <Compile Include="Assets\Scripts\Framework\Pool\PoolManager.cs" />
     <Compile Include="Assets\Scripts\Framework\Pool\PoolObj.cs" />
     <Compile Include="Assets\Scripts\Framework\Timer\TimerItem.cs" />
@@ -104,6 +109,7 @@
     <Compile Include="Assets\Scripts\BootStrap.cs" />
     <Compile Include="Assets\Scripts\Framework\Input\InputManager.cs" />
     <Compile Include="Assets\Scripts\Panel\WarningPanel\WarningPanel.cs" />
+    <Compile Include="Assets\Scripts\GameManager.cs" />
     <Compile Include="Assets\MiniGames\Trail\Trail.cs" />
     <Compile Include="Assets\Scripts\Framework\Scene\ScenesManager.cs" />
     <Compile Include="Assets\unity-chan!\Unity-chan! Model\Scripts\FaceUpdate.cs" />
@@ -127,6 +133,7 @@
     <Compile Include="Assets\Scripts\Framework\Res\ResourcesManager.cs" />
     <Compile Include="Assets\unity-chan!\Unity-chan! Model\Scripts\UnityChanControlScriptWithRgidBody.cs" />
     <Compile Include="Assets\Scripts\Panel\LoginPanel\LoginModel.cs" />
+    <Compile Include="Assets\Scripts\Panel\MainPanel\MainModel.cs" />
     <Compile Include="Assets\LitJson\JsonWriter.cs" />
     <Compile Include="Assets\Scripts\Data\UserInfo.cs" />
   </ItemGroup>

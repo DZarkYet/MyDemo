@@ -16,8 +16,18 @@ public class AttackHitbox : MonoBehaviour
     {
         if (other.CompareTag("Enemy") && !hitTargets.Contains(other.gameObject))
         {
+            GameObject effect = PoolManager.Instance.GetObj("effect/Electro hit");
+            StartCoroutine(DelayEffectRecycle(effect));
+            effect.transform.position = other.transform.position;
+            effect.transform.rotation = Quaternion.identity;
             hitTargets.Add(other.gameObject);
             other.GetComponent<EnemyController>()?.TakeDamage(damage);
         }
+    }
+
+    IEnumerator DelayEffectRecycle(GameObject effect)
+    {
+        yield return new WaitForSeconds(effect.GetComponent<BaseEffect>().duration);
+        PoolManager.Instance.PushObj(effect);
     }
 }
