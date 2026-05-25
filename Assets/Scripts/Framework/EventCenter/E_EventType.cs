@@ -10,7 +10,7 @@ public enum E_EventType
     /// <summary>
     /// 怪物死亡事件 -- 参数:Monster
     /// </summary>
-    E_Mnster_Dead,
+    E_Monster_Dead,
     /// <summary>
     /// 玩家获取奖励 -- 参数:int
     /// </summary>
@@ -55,4 +55,16 @@ public enum E_EventType
     /// 关闭注册面板
     /// </summary>
     E_Close_Registry,
+    /// <summary>
+    /// 场景加载结束
+    /// </summary>
+    E_End_Loading,
+    /// <summary>
+    /// 锁定鼠标
+    /// </summary>
+    E_Mouse_Lock,
+    /// <summary>
+    /// 解除鼠标锁定
+    /// </summary>
+    E_Mouse_UnLock,
 }

@@ -5,10 +5,12 @@ using UnityEngine;
 public class LoginController : MonoBehaviour
 {
     public LoginModel model;
+    private float progress;
 
     private void Awake()
     {
         model = gameObject.GetComponent<LoginModel>();
+        EventCenter.Instance.AddEventListener<float>(E_EventType.E_Scene_Load, GetProgress);
     }
 
     public bool CheckAcount(string username, string password)
@@ -26,5 +28,23 @@ public class LoginController : MonoBehaviour
         }
         else
             return false;
+    }
+
+    public void SwitchScene(string sceneName)
+    {
+        ScenesManager.Instance.LoadSceneAsync(sceneName, () =>
+        {
+            UIManager.Instance.HidePanel<LoadingPanel>();
+            UIManager.Instance.HidePanel<LoginPanel>();
+        });
+    }
+
+    private void GetProgress(float progress)
+    {
+        this.progress = progress;
+        UIManager.Instance.GetPanel<LoadingPanel>((obj) =>
+        {
+            obj.progressSlider.value = progress;
+        });
     }
 }

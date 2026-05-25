@@ -107,7 +107,7 @@ public class MusicManager : BaseManager<MusicManager>
     /// <param name="isLoop">是否循环</param>
     /// <param name="isSync">是否异步加载</param>
     /// <param name="callBack">播放结束后的回调</param>
-    public void PlaySound(string name, bool isLoop = false, bool isSync = false, UnityAction<AudioSource> callBack = null)
+    public void PlaySound(string name, bool isMp3 = true, bool isLoop = false, bool isSync = false, UnityAction<AudioSource> callBack = null)
     {
         //加载音效资源 进行播放
         ABResManager.Instance.LoadResAsync<AudioClip>("sound", name, (clip) =>
@@ -127,7 +127,7 @@ public class MusicManager : BaseManager<MusicManager>
                 soundList.Add(source);
             //传递给外部使用
             callBack?.Invoke(source);
-        }, isSync, true);
+        }, isSync, isMp3);
     }
 
     /// <summary>

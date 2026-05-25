@@ -31,6 +31,8 @@ public class LoginPanel : BasePanel
             if(controller.CheckAcount(usernameField.text, passwordField.text))
             {
                 Debug.Log("µÇÂ¼³É¹¦");
+                UIManager.Instance.ShowPanel<LoadingPanel>(E_UILayer.Top);
+                controller.SwitchScene("MainScene");
             }
             else
             {

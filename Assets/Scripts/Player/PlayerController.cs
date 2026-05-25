@@ -7,12 +7,17 @@ public class PlayerController : MonoBehaviour
     [Header("组件设置")]
     private CharacterController characterController;
     private Animator animator;
-    public Transform followingCamera;
+    private Transform followingCamera;
     public PlayerDataSO data;
+    public ComboDataSO comboData;
     public GameObject sword;
     public GameObject packedSword;
     private Coroutine delayComboCoroutine;
     private Coroutine delaySwordCoroutine;
+    private Coroutine delaySprintCoroutine;
+    private Coroutine delaySwordActiveCoroutine;
+    private Coroutine disableHitboxCoroutine;
+    private GameObject currentHitbox;
 
     [Header("基础设置")]
     public float currentSpeed;
@@ -22,6 +27,7 @@ public class PlayerController : MonoBehaviour
     private int comboCount = 0;
     private bool isSprinting = false;
 
+    private GameObject[] attackTarget;
     private Vector2 moveInput;
     private float rotateVelocity;
     private float smoothTime = 0.08f;
@@ -31,6 +37,7 @@ public class PlayerController : MonoBehaviour
         //获取角色控制器组件和动画组件的引用，以便在后续的移动和动画逻辑中使用
         animator = GetComponentInChildren<Animator>();
         characterController = GetComponent<CharacterController>();
+        followingCamera = Camera.main.transform;
         //启动输入管理器，并注册水平轴、垂直轴的监听器，以便在玩家输入时能够正确处理移动逻辑
         if (InputManager.Instance != null)
             InputManager.Instance.StartOrCloseInputMgr(true);
@@ -49,6 +56,9 @@ public class PlayerController : MonoBehaviour
         EventCenter.Instance.AddEventListener(E_EventType.E_Player_Sprint, OnReceiveSprint);
 
         MusicManager.Instance.ChangeSoundValue(0.5f);
+
+        sword.SetActive(false);
+        packedSword.SetActive(true);
     }
 
     void Start()
@@ -59,7 +69,11 @@ public class PlayerController : MonoBehaviour
     
     void Update()
     {
-        OnPlayerMoveAndJump();
+        if (!animator.GetCurrentAnimatorStateInfo(0).IsTag("Attack"))
+        {
+            OnPlayerMoveAndJump();
+        }     
+        OnCancelSprint();
     }
 
     #region 水平移动和跳跃逻辑
@@ -111,7 +125,7 @@ public class PlayerController : MonoBehaviour
         //如果输入方向的大小大于0.1（即玩家有明显的输入），则根据摄像机的朝向计算移动方向，并平滑旋转角色朝向目标角度
         if (inputDir.magnitude > 0.1f)
         {
-            if (!isJumping && !isSprinting)
+            if (!isJumping)
                 animator.SetFloat("Speed", inputDir.magnitude);
             Vector3 cameraForward = followingCamera.transform.forward;
             Vector3 cameraRight = followingCamera.transform.right;
@@ -126,7 +140,7 @@ public class PlayerController : MonoBehaviour
         }
         else
         {
-            if (!isJumping && !isSprinting)
+            if (!isJumping)
                 animator.SetFloat("Speed", 0f);
         }
         Vector3 finalMoveDir = moveDir * currentSpeed * Time.deltaTime + gravityDir * Time.deltaTime;
@@ -175,8 +189,12 @@ public class PlayerController : MonoBehaviour
     }
     #endregion
 
+    //接受攻击信息并处理攻击逻辑
     private void OnReceiveAttack()
     {
+        LookAtNearestEnemy();
+        if (delaySwordActiveCoroutine != null)
+            StopCoroutine(delaySwordActiveCoroutine);
         packedSword.SetActive(false);
         sword.SetActive(true);
         comboCount++;
@@ -190,33 +208,85 @@ public class PlayerController : MonoBehaviour
         {
             case 1:
                 animator.CrossFade("Combo1", 0f);
+                SpawnAttackHitbox(comboCount);
                 MusicManager.Instance.PlaySound("attack1");
+                MusicManager.Instance.PlaySound("normalSwoosh", false);
                 break;
             case 2:
                 animator.CrossFade("Combo2", 0f);
+                SpawnAttackHitbox(comboCount);
+                MusicManager.Instance.PlaySound("normalSwoosh", false);
                 break;
             case 3:
                 animator.CrossFade("Combo3", 0f);
+                SpawnAttackHitbox(comboCount);
                 MusicManager.Instance.PlaySound("attack2");
+                MusicManager.Instance.PlaySound("windSwoosh", false);
                 break;
             case 4:
                 animator.CrossFade("Combo4", 0f);
+                SpawnAttackHitbox(comboCount);
+                MusicManager.Instance.PlaySound("windSwoosh", false);
                 break;
             case 5:
                 animator.CrossFade("Combo5", 0f);
+                SpawnAttackHitbox(comboCount);
                 MusicManager.Instance.PlaySound("attack3");
+                MusicManager.Instance.PlaySound("lastSwoosh");
+                delaySwordActiveCoroutine = StartCoroutine(DelayCombo5Effect());
                 break;
         }
         delayComboCoroutine = StartCoroutine(DelayComboWindow());
         delaySwordCoroutine = StartCoroutine(DelaySwordState());
     }
 
+    private void SpawnAttackHitbox(int comboIndex)
+    {
+        if (disableHitboxCoroutine != null)
+            StopCoroutine(disableHitboxCoroutine);
+        if (currentHitbox != null)
+        {
+            currentHitbox.SetActive(false);
+            PoolManager.Instance.PushObj(currentHitbox);
+            currentHitbox = null;
+        }
+
+        ComboInfo data = comboData.combos[comboIndex - 1];
+
+        currentHitbox = PoolManager.Instance.GetObj("AttackHitbox");
+        currentHitbox.transform.SetParent(this.transform);
+        currentHitbox.transform.localPosition = data.hitboxCenter;
+        currentHitbox.transform.localRotation = Quaternion.identity;
+        currentHitbox.transform.localScale = data.hitboxSize;
+
+        // 伤害写到判定框的碰撞脚本上
+        var hitboxScript = currentHitbox.GetComponent<AttackHitbox>();
+        if (hitboxScript != null)
+            hitboxScript.damage = data.damage;
+
+        disableHitboxCoroutine = StartCoroutine(DisableHitbox(data.activeDuration));
+    }
+
+    private IEnumerator DisableHitbox(float delay)
+    {
+        yield return new WaitForSeconds(delay);
+        if (currentHitbox != null)
+        {
+            currentHitbox.SetActive(false);
+            PoolManager.Instance.PushObj(currentHitbox);
+            currentHitbox = null;
+        }
+    }
+
+
+    //延迟清空连段
     IEnumerator DelayComboWindow()
     {
         yield return new WaitForSeconds(2);
         comboCount = 0;
     }
 
+    //延迟清空背剑与手持剑状态
     IEnumerator DelaySwordState()
     {
         yield return new WaitForSeconds(2);
@@ -224,10 +294,66 @@ public class PlayerController : MonoBehaviour
         packedSword.SetActive(true);
     }
 
+    //接收冲刺的消息
     private void OnReceiveSprint()
     {
-        animator.CrossFade("Sprint", 0f);
-        currentSpeed = data.sprintSpeed;
-        isSprinting = true;
+        if(moveInput.magnitude > 0.1)
+        {
+            isSprinting = true;
+            animator.CrossFade("Sprint", 0f);
+            animator.SetBool("IsSprinting", true);
+            currentSpeed = data.sprintSpeed;
+            delaySprintCoroutine = StartCoroutine(DelaySprintState());
+        }
+    }
+
+    //延迟处理冲刺的停止逻辑，设置冲刺时长
+    IEnumerator DelaySprintState()
+    {
+        yield return new WaitForSeconds(2f);
+        isSprinting = false;
+        animator.SetBool("IsSprinting", false);
+    }
+
+    //取消冲刺逻辑
+    private void OnCancelSprint()
+    {
+        if(moveInput.magnitude < 0.1f)
+        {
+            animator.SetBool("IsSprinting", false);
+            if (delaySprintCoroutine != null)
+                StopCoroutine(delaySprintCoroutine);
+        }
+    }
+
+    //延迟播放第五段攻击的特效动画，使其匹配攻击动画
+    IEnumerator DelayCombo5Effect()
+    {
+        yield return new WaitForSeconds(0.5f);
+        GameObject effectObj = PoolManager.Instance.GetObj("effect/Electro slash");
+        effectObj.transform.position = this.transform.position + this.transform.forward * 1f;
+        effectObj.transform.rotation = this.transform.rotation;
+    }
+
+    private void LookAtNearestEnemy()
+    {
+        attackTarget = GameObject.FindGameObjectsWithTag("Enemy");
+        if (attackTarget.Length > 0)
+        {
+            GameObject nearestEnemy = null;
+            float minDistance = 10000f;
+            foreach (GameObject enemy in attackTarget)
+            {
+                float distance = Vector3.Distance(transform.position, enemy.transform.position);
+                if (distance < minDistance)
+                {
+                    nearestEnemy = enemy;
+                    minDistance = distance;
+                }
+            }
+            Vector3 enemyPos = nearestEnemy.transform.position;
+            enemyPos.y = transform.position.y;
+            transform.LookAt(enemyPos);
+        }
     }
 }

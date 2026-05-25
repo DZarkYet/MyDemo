@@ -25,7 +25,7 @@ public class RegistryPanel : BasePanel
 
     protected override void ClickBtn(string btnName)
     {
-        if(btnName == "ConfirmBtn")
+        if (btnName == "ConfirmBtn")
         {
             int checkResult = controller.CheckAcount(usernameField.text, passwordField.text, passwordField2.text);
             switch (checkResult)
@@ -51,6 +51,8 @@ public class RegistryPanel : BasePanel
                     break;
             }
         }
+        else if(btnName == "BackBtn")
+            HideMe();
     }
 
     public override void HideMe()
