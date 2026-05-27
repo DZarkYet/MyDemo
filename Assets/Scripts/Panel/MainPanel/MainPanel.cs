@@ -9,6 +9,8 @@ public class MainPanel : BasePanel
     private Button startBtn;
     private Text timeText;
     private Slider hpBar;
+    private float maxHp = 300f;
+    public float nowTime = 30000;
 
     protected override void Awake()
     {
@@ -17,8 +19,19 @@ public class MainPanel : BasePanel
         timeText = GetControl<Text>("TimeText");
         hpBar = GetControl<Slider>("HpBar");
         hpBar.value = 1;
-        timeText.text = "30:00";
+        EventCenter.Instance.AddEventListener<float>(E_EventType.E_Player_Hit, ChangeHpBar);
+        EventCenter.Instance.AddEventListener(E_EventType.E_Times_Up, () =>
+        {
+            startBtn.gameObject.SetActive(true);
+            nowTime = 30000;
+        });
+        timeText.text = (nowTime / 1000).ToString();
         controller.ShowRank();
+    }
+
+    private void Update()
+    {
+        timeText.text = (nowTime / 1000).ToString();
     }
 
     protected override void ClickBtn(string btnName)
@@ -26,7 +39,7 @@ public class MainPanel : BasePanel
         if(btnName == "StartBtn")
         {
             startBtn.gameObject.SetActive(false);
-            controller.GenerateEnemy();
+            controller.StartGame();
             controller.StartTimer();
         }
     }
@@ -41,4 +54,8 @@ public class MainPanel : BasePanel
         this.gameObject.SetActive(true);
     }
 
+    private void ChangeHpBar(float nowHp)
+    {
+        hpBar.value = nowHp / maxHp;
+    }
 }

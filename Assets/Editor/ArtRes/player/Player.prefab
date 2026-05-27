@@ -11405,6 +11405,7 @@ MonoBehaviour:
   packedSword: {fileID: 1061395181232609899}
   currentSpeed: 0
   gravity: 9.81
+  nowHp: 0
 --- !u!1 &4726790706001696733
 GameObject:
   m_ObjectHideFlags: 0

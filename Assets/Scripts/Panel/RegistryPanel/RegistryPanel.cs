@@ -45,7 +45,6 @@ public class RegistryPanel : BasePanel
                 case 2:
                     UIManager.Instance.ShowPanel<WarningPanel>(E_UILayer.Top, (obj) =>
                     {
-                        EventCenter.Instance.AddEventListener(E_EventType.E_Close_Registry, HideMe);
                         obj.contentText.text = "新账号创建成功，可直接登录";
                     });
                     break;
@@ -58,15 +57,13 @@ public class RegistryPanel : BasePanel
     public override void HideMe()
     {
         this.gameObject.SetActive(false);
+        EventCenter.Instance.RemoveEventListener(E_EventType.E_Close_Registry, HideMe);
     }
 
     public override void ShowMe()
     {
         this.gameObject.SetActive(true);
+        EventCenter.Instance.AddEventListener(E_EventType.E_Close_Registry, HideMe);
     }
 
-    private void OnDisable()
-    {
-        EventCenter.Instance.RemoveEventListener(E_EventType.E_Close_Registry, HideMe);
-    }
 }

@@ -143,7 +143,7 @@ public class TimerManager : BaseManager<TimerManager>
             //移除对应ID计时器 放入缓存池
             PoolManager.Instance.PushObj<TimerItem>(realTimerDic[keyID]);
             //从字典中移除
-            timerDic.Remove(keyID);
+            realTimerDic.Remove(keyID);
         }
     }
 

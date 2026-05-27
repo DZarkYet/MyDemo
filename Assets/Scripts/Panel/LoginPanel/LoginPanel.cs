@@ -31,6 +31,7 @@ public class LoginPanel : BasePanel
             if(controller.CheckAcount(usernameField.text, passwordField.text))
             {
                 Debug.Log("µÇÂ¼³É¹¦");
+                MusicManager.Instance.StopBKMusic();
                 UIManager.Instance.ShowPanel<LoadingPanel>(E_UILayer.Top);
                 controller.SwitchScene("MainScene");
             }

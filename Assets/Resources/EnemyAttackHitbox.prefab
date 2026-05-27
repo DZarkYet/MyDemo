@@ -12,7 +12,8 @@ GameObject:
   - component: {fileID: 8949047672071846733}
   - component: {fileID: 2126959581799020897}
   - component: {fileID: 271221380487134158}
-  m_Layer: 0
+  - component: {fileID: -7979925541380256644}
+  m_Layer: 7
   m_Name: EnemyAttackHitbox
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -49,7 +50,7 @@ BoxCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
@@ -95,3 +96,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   damage: 0
+--- !u!114 &-7979925541380256644
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4613429070767719815}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 39a3259a3cd21f34da3eccda646117ca, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxNum: 6

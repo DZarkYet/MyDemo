@@ -63,4 +63,20 @@ public enum E_EventType
     /// 玩家受伤
     /// </summary>
     E_Player_Hit,
+    /// <summary>
+    /// 玩家死亡
+    /// </summary>
+    E_Player_Dead,
+    /// <summary>
+    /// 角色闪避
+    /// </summary>
+    E_Player_Dodge,
+    /// <summary>
+    /// 暂停或者结束游戏
+    /// </summary>
+    E_Pause,
+    /// <summary>
+    /// 继续游戏
+    /// </summary>
+    E_Resume
 }

@@ -282,7 +282,16 @@ public class PoolManager:BaseManager<PoolManager>
         //    poolDic.Add(obj.name, new PoolData(poolObj, obj.name));
         //}
         //往抽屉当中放对象
-        poolDic[obj.name].Push(obj);
+
+        if (obj == null) return;
+        string name = obj.name;
+        if(poolDic.ContainsKey(name))
+            poolDic[name].Push(obj);
+        else
+        {
+            GameObject.Destroy(obj);
+            Debug.LogWarning($"对象{name}不在池中，直接销毁对象");
+        }
 
     }
 

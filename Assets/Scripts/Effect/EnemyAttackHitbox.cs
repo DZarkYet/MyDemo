@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class EnemyAttackHitbox : MonoBehaviour
 {
-    public float damage;
+    public float damage = 15f;
     private bool hasHit = false;
 
     private void OnEnable()

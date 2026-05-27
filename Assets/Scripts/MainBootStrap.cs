@@ -9,20 +9,26 @@ public class MainBootStrap : MonoBehaviour
 
     private void Awake()
     {
-        EventCenter.Instance.AddEventListener(E_EventType.E_Game_Start, LockMouse);
-        EventCenter.Instance.AddEventListener(E_EventType.E_Times_Up, RemoveListenr);
-        ABResManager.Instance.LoadResAsync<GameObject>("player", "Player", (obj) =>
+        EventCenter.Instance.AddEventListener(E_EventType.E_Game_Start, () =>
         {
-            GameObject player = Instantiate<GameObject>(obj, Vector3.zero, Quaternion.identity);
-            freeLookCamera.GetComponent<CinemachineFreeLook>().Follow = player.transform;
-            Transform target = FindInAllChildren(player.transform, "Upper Chest");
-            freeLookCamera.GetComponent<CinemachineFreeLook>().LookAt = target;
+            CreatePlayer();
+            LockMouse();
         });
-    }
-
-    private void Start()
-    {
-        
+        EventCenter.Instance.AddEventListener(E_EventType.E_Times_Up, () =>
+        {
+            UnLockMouse();
+            RemoveListener();
+        });
+        EventCenter.Instance.AddEventListener(E_EventType.E_Pause, () =>
+        {
+            UIManager.Instance.ShowPanel<QuitPanel>(E_UILayer.Top);
+            UnLockMouse();
+        });
+        EventCenter.Instance.AddEventListener(E_EventType.E_Resume, () =>
+        {
+            UIManager.Instance.HidePanel<QuitPanel>();
+            LockMouse();
+        });
     }
 
     private Transform FindInAllChildren(Transform parent, string name)
@@ -39,10 +45,17 @@ public class MainBootStrap : MonoBehaviour
         return null;
     }
 
-    void Update()
+    private void CreatePlayer()
     {
-        
+        ABResManager.Instance.LoadResAsync<GameObject>("player", "Player", (obj) =>
+        {
+            GameObject player = Instantiate<GameObject>(obj, Vector3.zero, Quaternion.identity);
+            freeLookCamera.GetComponent<CinemachineFreeLook>().Follow = player.transform;
+            Transform target = FindInAllChildren(player.transform, "Upper Chest");
+            freeLookCamera.GetComponent<CinemachineFreeLook>().LookAt = target;
+        });
     }
+
 
     private void LockMouse()
     {
@@ -60,9 +73,10 @@ public class MainBootStrap : MonoBehaviour
         Cursor.visible = true;
     }
 
-    private void RemoveListenr()
+    private void RemoveListener()
     {
         EventCenter.Instance.RemoveEventListener(E_EventType.E_Mouse_UnLock, UnLockMouse);
         EventCenter.Instance.RemoveEventListener(E_EventType.E_Mouse_Lock, LockMouse);
     }
+
 }

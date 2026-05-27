@@ -26,8 +26,13 @@ public class EnemyController : MonoBehaviour
 
     private E_Enemy_State currentState = E_Enemy_State.E_Idle;
 
+    [Header("基础设置")]
     public float hpNow;
+    private bool isHit = false;
     private bool isDead;
+    private bool isDying;
+    private float attackCooldown = 0f;
+    private bool isStart = true;
 
     void Awake()
     {
@@ -37,23 +42,39 @@ public class EnemyController : MonoBehaviour
         agent = GetComponent<NavMeshAgent>();
         agent.speed = data.speed;
     }
-    
-    void Start()
+
+    private void OnEnable()
     {
-        player = GameObject.FindWithTag("Player").transform;
+        EventCenter.Instance.AddEventListener(E_EventType.E_Pause, OnPause);
+        EventCenter.Instance.AddEventListener(E_EventType.E_Resume, OnResume);
+        GameObject playerObj = GameObject.FindWithTag("Player");
+        if (playerObj != null)
+            player = playerObj.transform;
     }
 
-    
     void Update()
     {
-        OnHpValueChange();
-        LookAtPlayer();
-        EnemyState();
-        HandleDeadState();
+        if (isStart)
+        {
+            OnHpValueChange();
+            LookAtPlayer();
+            if (attackCooldown > 0f)
+                attackCooldown -= Time.deltaTime;
+            if (!isHit)
+                EnemyState();
+            HandleDeadState();
+        }
+    }
+
+    private void OnDisable()
+    {
+        EventCenter.Instance.RemoveEventListener(E_EventType.E_Pause, OnPause);
+        EventCenter.Instance.RemoveEventListener(E_EventType.E_Resume, OnResume);
     }
 
     private void LookAtPlayer()
     {
+        if (player == null) return;
         Vector3 playerPos = player.position;
         playerPos.y = transform.position.y;
         transform.LookAt(playerPos);
@@ -61,7 +82,7 @@ public class EnemyController : MonoBehaviour
 
     private void EnemyState()
     {
-        if (!isDead)
+        if (!isDead && player != null)
         {
             float distance = Vector3.Distance(player.position, this.transform.position);
             switch (currentState)
@@ -99,8 +120,7 @@ public class EnemyController : MonoBehaviour
 
     private void HandleAttack()
     {
-        if (animator.GetBool("Attack"))
-            return;
+        if (animator.GetBool("Attack") || attackCooldown > 0) return;
         animator.SetBool("Attack", true);
         MusicManager.Instance.PlaySound("monster", false);
 
@@ -111,15 +131,26 @@ public class EnemyController : MonoBehaviour
 
     private void HandleDeadState()
     {
-        if (!isDead) return;
+        if (!isDead || isDying) return;
+        isDying = true;
         animator.CrossFade("Dead", 0f);
-        PoolManager.Instance.PushObj(this.gameObject);
+        StartCoroutine(DelayPushEnemy());
+    }
+
+    IEnumerator DelayPushEnemy()
+    {
+        isDying = false;
+        yield return new WaitForSeconds(1f);
         isDead = false;
+        PoolManager.Instance.PushObj(this.gameObject);
+        hpNow = data.maxHP;
+        animator.Rebind();
     }
 
     private void OnHpValueChange()
     {
-        if(hpNow <= 0)
+        if (isDead) return;
+        if (hpNow <= 0)
         {
             EventCenter.Instance.EventTrigger(E_EventType.E_Monster_Dead);
             hpNow = 0;
@@ -131,7 +162,8 @@ public class EnemyController : MonoBehaviour
     public void TakeDamage(float damage)
     {
         if (isDead) return;
-        animator.SetBool("Hit", true);
+        animator.CrossFade("Hit", 0f);
+        isHit = true;
         hpNow -= damage;
         StartCoroutine(ResetHitBool());
     }
@@ -139,6 +171,7 @@ public class EnemyController : MonoBehaviour
     {
         yield return new WaitForSeconds(0.2f);
         animator.SetBool("Hit", false);
+        isHit = false;
     }
 
     // 攻击动画结束事件 → 重置 Attack bool
@@ -151,6 +184,7 @@ public class EnemyController : MonoBehaviour
     {
         yield return new WaitForSeconds(0.15f);
         currentAttackHitbox = PoolManager.Instance.GetObj("EnemyAttackHitbox");
+        currentAttackHitbox.SetActive(false);
         currentAttackHitbox.transform.SetParent(transform);
         // 固定值：前方1米，1米宽高
         currentAttackHitbox.transform.localPosition = new Vector3(0, 1f, 1f);
@@ -172,6 +206,17 @@ public class EnemyController : MonoBehaviour
             currentAttackHitbox = null;
         }
         animator.SetBool("Attack", false);
+        attackCooldown = 2f;
+    }
+
+    private void OnPause()
+    {
+        isStart = false;
+    }
+
+    private void OnResume()
+    {
+        isStart = true;
     }
 
 }

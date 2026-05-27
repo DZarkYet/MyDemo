@@ -7,6 +7,7 @@ public class BootStrap : MonoBehaviour
     void Start()
     {
         UIManager.Instance.ShowPanel<LoginPanel>(E_UILayer.Middle);
+        MusicManager.Instance.PlayBKMusic("background");
     }
 
 }

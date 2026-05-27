@@ -27,7 +27,7 @@ public class AttackHitbox : MonoBehaviour
 
     IEnumerator DelayEffectRecycle(GameObject effect)
     {
-        yield return new WaitForSeconds(effect.GetComponent<BaseEffect>().duration);
+        yield return new WaitForSecondsRealtime(effect.GetComponent<BaseEffect>().duration);
         PoolManager.Instance.PushObj(effect);
     }
 }

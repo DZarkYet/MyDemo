@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: PlayerDataSO
   m_EditorClassIdentifier: 
   characterName: Player
-  maxHP: 100
+  maxHP: 300
   normalSpeed: 5
   sprintSpeed: 8
   attackPower: 10
