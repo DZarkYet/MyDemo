@@ -17,7 +17,6 @@ public class MainBootStrap : MonoBehaviour
         EventCenter.Instance.AddEventListener(E_EventType.E_Times_Up, () =>
         {
             UnLockMouse();
-            RemoveListener();
         });
         EventCenter.Instance.AddEventListener(E_EventType.E_Pause, () =>
         {
@@ -61,22 +60,12 @@ public class MainBootStrap : MonoBehaviour
     {
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
-        InputManager.Instance.ChangeKeyInfo(E_EventType.E_Mouse_UnLock, KeyCode.LeftAlt, InputInfo.E_InputType.Down);
-        InputManager.Instance.ChangeKeyInfo(E_EventType.E_Mouse_Lock, KeyCode.LeftAlt, InputInfo.E_InputType.Up);
-        EventCenter.Instance.AddEventListener(E_EventType.E_Mouse_UnLock, UnLockMouse);
-        EventCenter.Instance.AddEventListener(E_EventType.E_Mouse_Lock, LockMouse);
     }
 
     private void UnLockMouse()
     {
         Cursor.lockState = CursorLockMode.Confined;
         Cursor.visible = true;
-    }
-
-    private void RemoveListener()
-    {
-        EventCenter.Instance.RemoveEventListener(E_EventType.E_Mouse_UnLock, UnLockMouse);
-        EventCenter.Instance.RemoveEventListener(E_EventType.E_Mouse_Lock, LockMouse);
     }
 
 }

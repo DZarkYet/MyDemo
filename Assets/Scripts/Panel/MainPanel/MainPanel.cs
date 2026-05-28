@@ -23,7 +23,14 @@ public class MainPanel : BasePanel
         EventCenter.Instance.AddEventListener(E_EventType.E_Times_Up, () =>
         {
             startBtn.gameObject.SetActive(true);
-            nowTime = 30000;
+        });
+        EventCenter.Instance.AddEventListener(E_EventType.E_Player_Dead, () =>
+        {
+            startBtn.gameObject.SetActive(true);
+        });
+        EventCenter.Instance.AddEventListener(E_EventType.E_Game_Start, () =>
+        {
+            hpBar.value = 1;
         });
         timeText.text = (nowTime / 1000).ToString();
         controller.ShowRank();
@@ -39,6 +46,7 @@ public class MainPanel : BasePanel
         if(btnName == "StartBtn")
         {
             startBtn.gameObject.SetActive(false);
+            nowTime = 30000;
             controller.StartGame();
             controller.StartTimer();
         }

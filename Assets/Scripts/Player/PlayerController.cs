@@ -456,7 +456,7 @@ public class PlayerController : MonoBehaviour
     //ÑÓ³ÙÏú»Ù½ÇÉ«
     IEnumerator DelayPlayerDestroy()
     {
-        yield return new WaitForSeconds(2f);
+        yield return new WaitForSeconds(5f);
         Destroy(this.gameObject);
     }
 
@@ -464,6 +464,7 @@ public class PlayerController : MonoBehaviour
     private void TimesUp()
     {
         isStart = false;
+        animator.CrossFade("Cheering", 0f);
         animator.SetBool("IsCheering", true);
         MusicManager.Instance.PlaySound("cheering");
 

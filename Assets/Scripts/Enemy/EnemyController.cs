@@ -57,6 +57,13 @@ public class EnemyController : MonoBehaviour
         if (isStart)
         {
             OnHpValueChange();
+            if (player == null)
+            {
+                GameObject playerObj = GameObject.FindWithTag("Player");
+                if (playerObj != null)
+                    player = playerObj.transform;
+                return;
+            }
             LookAtPlayer();
             if (attackCooldown > 0f)
                 attackCooldown -= Time.deltaTime;
@@ -138,9 +145,9 @@ public class EnemyController : MonoBehaviour
     }
 
     IEnumerator DelayPushEnemy()
-    {
-        isDying = false;
+    { 
         yield return new WaitForSeconds(1f);
+        isDying = false;
         isDead = false;
         PoolManager.Instance.PushObj(this.gameObject);
         hpNow = data.maxHP;

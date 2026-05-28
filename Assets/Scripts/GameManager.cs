@@ -12,12 +12,14 @@ public class GameManager : SingletonAutoMono<GameManager>
 
     private GameManager() { }
 
-    private void Awake()
+    protected override void Awake()
     {
+        base.Awake();
+        base.Awake();
         EventCenter.Instance.AddEventListener(E_EventType.E_Monster_Dead, AddCount);
+        Debug.Log("GameManager Awake, 对象ID = " + GetInstanceID());
         EventCenter.Instance.AddEventListener(E_EventType.E_Times_Up, () =>
         {
-            enemyCount = 0;
             RemoveAllEnemy();
         });
         EventCenter.Instance.AddEventListener(E_EventType.E_Game_Start, () =>
@@ -63,6 +65,7 @@ public class GameManager : SingletonAutoMono<GameManager>
     private void RemoveAllEnemy()
     {
         isStart = false;
+        enemyCount = 0;
         enemys = GameObject.FindGameObjectsWithTag("Enemy");
         foreach(var item in enemys)
         {
@@ -73,7 +76,9 @@ public class GameManager : SingletonAutoMono<GameManager>
 
     private void AddCount()
     {
+        Debug.Log("AddCount 被调用！killCount=" + killCount);
         killCount++;
+        enemyCount--;
     }
 
 }

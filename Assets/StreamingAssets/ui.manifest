@@ -1,0 +1,113 @@
+ManifestFileVersion: 0
+CRC: 1904069037
+Hashes:
+  AssetFileHash:
+    serializedVersion: 2
+    Hash: 7c970e6229189bdbaebb1c262722feb8
+  TypeTreeHash:
+    serializedVersion: 2
+    Hash: 3cdda860040b62ad683689742a4fe828
+  IncrementalBuildHash:
+    serializedVersion: 2
+    Hash: 7c970e6229189bdbaebb1c262722feb8
+HashAppended: 0
+ClassTypes:
+- Class: 1
+  Script: {instanceID: 0}
+- Class: 21
+  Script: {instanceID: 0}
+- Class: 28
+  Script: {instanceID: 0}
+- Class: 48
+  Script: {instanceID: 0}
+- Class: 114
+  Script: {fileID: 11500000, guid: 31a19414c41e5ae4aae2af33fee712f6, type: 3}
+- Class: 114
+  Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
+- Class: 114
+  Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+- Class: 114
+  Script: {fileID: 11500000, guid: 253f50868d911634f8da4c7153cf5da4, type: 3}
+- Class: 114
+  Script: {fileID: 11500000, guid: 823152dea19d3544f91d075db1d68fe9, type: 3}
+- Class: 114
+  Script: {fileID: 11500000, guid: 07f20f7e6ecfcf84381b4e38570cb0f7, type: 3}
+- Class: 114
+  Script: {fileID: 11500000, guid: d199490a83bb2b844b9695cbf13b01ef, type: 3}
+- Class: 114
+  Script: {fileID: 11500000, guid: 8f2076a5f47796746ae53e57f47dd639, type: 3}
+- Class: 114
+  Script: {fileID: 11500000, guid: 401f6dd743cf2f149998b1b2394c1579, type: 3}
+- Class: 114
+  Script: {fileID: 11500000, guid: 3312d7739989d2b4e91e6319e9a96d76, type: 3}
+- Class: 114
+  Script: {fileID: 11500000, guid: d5d1b8db43d70df43b6bd5a950a57836, type: 3}
+- Class: 114
+  Script: {fileID: 11500000, guid: febf7eb1375f369468e21c1d4a4fa08f, type: 3}
+- Class: 114
+  Script: {fileID: 11500000, guid: 67db9e8f0e2ae9c40bc1e2b64352a6b4, type: 3}
+- Class: 114
+  Script: {fileID: 11500000, guid: 07067528f1eaf144c97a9e342ec221fa, type: 3}
+- Class: 114
+  Script: {fileID: 11500000, guid: 5f7201a12d95ffc409449d95f23cf332, type: 3}
+- Class: 114
+  Script: {fileID: 11500000, guid: 09e48c0fd635f784cad4bd3014685d9f, type: 3}
+- Class: 114
+  Script: {fileID: 11500000, guid: 59f8146938fff824cb5fd77236b75775, type: 3}
+- Class: 114
+  Script: {fileID: 11500000, guid: 6dc65397d1d62154a9bdd6455c08c371, type: 3}
+- Class: 114
+  Script: {fileID: 11500000, guid: 1aa08ab6e0800fa44ae55d278d1423e3, type: 3}
+- Class: 114
+  Script: {fileID: 11500000, guid: 41031dd7c1d533446920e64b8bc441dc, type: 3}
+- Class: 114
+  Script: {fileID: 11500000, guid: b5bf9acca86447747a27265830e91f7c, type: 3}
+- Class: 114
+  Script: {fileID: 11500000, guid: 2fa6ecd6ca6676a4c8f986cd5400bdb5, type: 3}
+- Class: 115
+  Script: {instanceID: 0}
+- Class: 128
+  Script: {instanceID: 0}
+- Class: 213
+  Script: {instanceID: 0}
+- Class: 222
+  Script: {instanceID: 0}
+- Class: 224
+  Script: {instanceID: 0}
+SerializeReferenceClassIdentifiers:
+- AssemblyName: UnityEngine.CoreModule
+  ClassName: UnityEngine.Events.PersistentCallGroup
+- AssemblyName: UnityEngine.CoreModule
+  ClassName: UnityEngine.RectOffset
+- AssemblyName: UnityEngine.UI
+  ClassName: UnityEngine.UI.AnimationTriggers
+- AssemblyName: UnityEngine.UI
+  ClassName: UnityEngine.UI.Button/ButtonClickedEvent
+- AssemblyName: UnityEngine.UI
+  ClassName: UnityEngine.UI.ColorBlock
+- AssemblyName: UnityEngine.UI
+  ClassName: UnityEngine.UI.FontData
+- AssemblyName: UnityEngine.UI
+  ClassName: UnityEngine.UI.InputField/EndEditEvent
+- AssemblyName: UnityEngine.UI
+  ClassName: UnityEngine.UI.InputField/OnChangeEvent
+- AssemblyName: UnityEngine.UI
+  ClassName: UnityEngine.UI.InputField/SubmitEvent
+- AssemblyName: UnityEngine.UI
+  ClassName: UnityEngine.UI.MaskableGraphic/CullStateChangedEvent
+- AssemblyName: UnityEngine.UI
+  ClassName: UnityEngine.UI.Navigation
+- AssemblyName: UnityEngine.UI
+  ClassName: UnityEngine.UI.ScrollRect/ScrollRectEvent
+- AssemblyName: UnityEngine.UI
+  ClassName: UnityEngine.UI.Slider/SliderEvent
+- AssemblyName: UnityEngine.UI
+  ClassName: UnityEngine.UI.SpriteState
+Assets:
+- Assets/Editor/ArtRes/ui/WarningPanel.prefab
+- Assets/Editor/ArtRes/ui/QuitPanel.prefab
+- Assets/Editor/ArtRes/ui/MainPanel.prefab
+- Assets/Editor/ArtRes/ui/LoginPanel.prefab
+- Assets/Editor/ArtRes/ui/RegistryPanel.prefab
+- Assets/Editor/ArtRes/ui/LoadingPanel.prefab
+Dependencies: []

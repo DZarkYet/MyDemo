@@ -13,11 +13,12 @@ public class MainController : MonoBehaviour
 
     public void StartTimer()
     {
-        int timerID = TimerManager.Instance.CreateTimer(true, 3000, () =>
+        int timerID = TimerManager.Instance.CreateTimer(true, 30000, () =>
         {
             EventCenter.Instance.EventTrigger(E_EventType.E_Times_Up);
             WriteData();
             ShowRank();
+            Debug.Log("计时结束, Instance 对象ID = " + GameManager.Instance.GetInstanceID() + ", killCount = " + GameManager.Instance.killCount);
             UIManager.Instance.ShowPanel<WarningPanel>(E_UILayer.Top, (obj) =>
             {
                 obj.contentText.text = "计时结束，成功击杀" + GameManager.Instance.killCount.ToString() + "个敌人";

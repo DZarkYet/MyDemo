@@ -37,6 +37,10 @@ public class LoginController : MonoBehaviour
             UIManager.Instance.HidePanel<LoadingPanel>();
             UIManager.Instance.HidePanel<LoginPanel>();
             UIManager.Instance.ShowPanel<MainPanel>();
+            UIManager.Instance.ShowPanel<WarningPanel>(E_UILayer.Top, (obj) =>
+            {
+                obj.contentText.text = "wasd¿ØÖÆ½ÇÉ«£¬×óshift³å´Ì£¬Êó±ê×ó¼ü¹¥»÷£¬ÓÒ¼üÉÁ±Ü£¬¿Õ¸ñ¼üÌøÔ¾";
+            });
         });
     }
 

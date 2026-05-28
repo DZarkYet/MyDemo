@@ -31,5 +31,19 @@ public class SingletonAutoMono<T> : MonoBehaviour where T : MonoBehaviour
         }
     }
 
-    
+    protected virtual void Awake()
+    {
+        if (instance == null)
+        {
+            instance = this as T;
+            DontDestroyOnLoad(gameObject);
+        }
+        else if (instance != this)
+        {
+            Destroy(gameObject);  // ·ÀÖ¹ÖØ¸´ÊµÀý
+        }
+    }
+
+
+
 }

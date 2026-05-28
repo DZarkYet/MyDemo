@@ -9,8 +9,9 @@ public class LuaManager : SingletonAutoMono<LuaManager>
     private LuaEnv luaEnv;
     private bool isOpenABLoader = false;
 
-    private void Awake()
+    protected override void Awake()
     {
+        base.Awake();
         Init();
     }
 

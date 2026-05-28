@@ -1,0 +1,66 @@
+ManifestFileVersion: 0
+CRC: 36458621
+Hashes:
+  AssetFileHash:
+    serializedVersion: 2
+    Hash: 444ff220fead72827ebdc05e522699e0
+  TypeTreeHash:
+    serializedVersion: 2
+    Hash: 14cabbb3eccdeca4eca3083f334073c7
+  IncrementalBuildHash:
+    serializedVersion: 2
+    Hash: 444ff220fead72827ebdc05e522699e0
+HashAppended: 0
+ClassTypes:
+- Class: 1
+  Script: {instanceID: 0}
+- Class: 4
+  Script: {instanceID: 0}
+- Class: 21
+  Script: {instanceID: 0}
+- Class: 28
+  Script: {instanceID: 0}
+- Class: 43
+  Script: {instanceID: 0}
+- Class: 48
+  Script: {instanceID: 0}
+- Class: 74
+  Script: {instanceID: 0}
+- Class: 90
+  Script: {instanceID: 0}
+- Class: 91
+  Script: {instanceID: 0}
+- Class: 95
+  Script: {instanceID: 0}
+- Class: 114
+  Script: {fileID: 11500000, guid: 6dffe8d1458190f45a1ee9df081f8cf3, type: 3}
+- Class: 114
+  Script: {fileID: 11500000, guid: bff4f5a8991d7fa47baed5c5ff25979f, type: 3}
+- Class: 114
+  Script: {fileID: 11500000, guid: fcb73b690c023734fb267911061a15c6, type: 3}
+- Class: 114
+  Script: {fileID: 11500000, guid: 6514ba86f976d724ab63844a6015b2aa, type: 3}
+- Class: 114
+  Script: {fileID: 11500000, guid: e8cc5bcff93e692459025d903f3bf425, type: 3}
+- Class: 114
+  Script: {fileID: 11500000, guid: b2d8418b0b9634b1892b0268dd9c2743, type: 3}
+- Class: 114
+  Script: {fileID: 11500000, guid: 49dc4c440b9a03e43a35c35390f39565, type: 3}
+- Class: 114
+  Script: {fileID: 11500000, guid: 37b7c58dc2d739b4c90fe59f6875debf, type: 3}
+- Class: 114
+  Script: {fileID: 11500000, guid: a38e39ada51aaba4db6d352ce218849e, type: 3}
+- Class: 115
+  Script: {instanceID: 0}
+- Class: 136
+  Script: {instanceID: 0}
+- Class: 137
+  Script: {instanceID: 0}
+- Class: 143
+  Script: {instanceID: 0}
+SerializeReferenceClassIdentifiers:
+- AssemblyName: Assembly-CSharp
+  ClassName: ComboInfo
+Assets:
+- Assets/Editor/ArtRes/player/Player.prefab
+Dependencies: []

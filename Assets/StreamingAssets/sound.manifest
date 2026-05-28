@@ -1,0 +1,38 @@
+ManifestFileVersion: 0
+CRC: 4121936976
+Hashes:
+  AssetFileHash:
+    serializedVersion: 2
+    Hash: 55bcdcf912a59eb9c1d8a59b505d5759
+  TypeTreeHash:
+    serializedVersion: 2
+    Hash: 9a2ca7bdbd1871f7131daf57de908e0c
+  IncrementalBuildHash:
+    serializedVersion: 2
+    Hash: 55bcdcf912a59eb9c1d8a59b505d5759
+HashAppended: 0
+ClassTypes:
+- Class: 83
+  Script: {instanceID: 0}
+SerializeReferenceClassIdentifiers: []
+Assets:
+- Assets/Editor/ArtRes/sound/normalSwoosh.wav
+- Assets/Editor/ArtRes/sound/lastSwoosh.mp3
+- Assets/Editor/ArtRes/sound/hurt1.mp3
+- Assets/AB/Character/Gilberta/sound/lose.mp3
+- Assets/Editor/ArtRes/sound/monster.wav
+- Assets/AB/Character/Gilberta/sound/lastSkill.mp3
+- Assets/AB/Character/Gilberta/sound/attack1.mp3
+- Assets/AB/Character/Gilberta/sound/hurt2.mp3
+- Assets/AB/Character/Gilberta/sound/hurt1.mp3
+- Assets/Editor/ArtRes/sound/windSwoosh.wav
+- Assets/AB/Character/Gilberta/sound/attack3.mp3
+- Assets/Editor/ArtRes/sound/attack3.mp3
+- Assets/Editor/ArtRes/sound/lose.mp3
+- Assets/AB/Character/Gilberta/sound/attack2.mp3
+- Assets/Editor/ArtRes/sound/cheering.mp3
+- Assets/Editor/ArtRes/sound/attack2.mp3
+- Assets/Editor/ArtRes/sound/hurt2.mp3
+- Assets/Editor/ArtRes/sound/attack1.mp3
+- Assets/Editor/ArtRes/sound/lastSkill.mp3
+Dependencies: []
